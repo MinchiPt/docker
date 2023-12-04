@@ -1,0 +1,33 @@
+Lesson 18:
+docker run -it node 
+#-it expose node
+
+node - v
+
+Lesson 21:
+FROM <base image>
+
+WORKDIR /app <all the subsequent commands will all run at /app subdirectory>
+
+COPY . . <copy all local files from current directory to Image/container file system>
+<Suggested:> COPY . /app <copy all local files from current directory to Image/app
+
+RUN npm install <simply installs npm <node image> and runs it
+
+RUN node server.js <runs server.js on node>
+vs
+CMD node server.js <runs server.js on node inside container>
+
+The main differences between RUN and CMD in a Dockerfile are:
+- RUN executes commands during the build process and creates intermediate layers in the image. Commands inside RUN are executed when building the image.
+- CMD sets the default command to run when starting a container. The container entrypoint will be the command/arguments set by CMD.
+Some key differences:
+- RUN - Used for installing dependencies and compiling during build time. Results are cached.
+- CMD - Used to define the default command to run when launching container. Can be overwritten by command line args. 
+- RUN commits result, CMD does not. Changes made in RUN persists in image.
+- RUN increases image size due to layers, CMD does not increase image size.
+- Multiple RUN commands allowed, only one CMD per Dockerfile.
+So in summary:
+- RUN executes commands at build time and caches results in image.
+- CMD sets the default command run by container at runtime.
+RUN is for build time dependencies and actions. CMD defines the runtime behavior and command when container starts.
